@@ -20,6 +20,7 @@ def plot_daily_new_us_cases(include_ny_nj=True) -> go.Figure:
             ~state_df['state'].str.contains('New York|New Jersey')].groupby(
             'date').cases.sum().diff()
     data = data[data.index > '2020-02-29']
+    ny_nj = '' if include_ny_nj else " (NY and NJ not included)"
     moving_avg = data.rolling('7d').mean().round(0)
     fig = go.Figure(data=[go.Bar(x=data.index, y=data.values,
                                  hovertemplate="<b>Date: </b>%{x}" +
@@ -29,7 +30,8 @@ def plot_daily_new_us_cases(include_ny_nj=True) -> go.Figure:
                                  name='Daily Cases')],
                     layout=go.Layout(yaxis={'title': 'Count'},
                                      xaxis={'title': 'Date'},
-                                     title=f'\nDaily New Cases for the US\n'))
+                                     title=f'\nDaily New Cases for the US'
+                                           f'{ny_nj}\n'))
     fig.add_trace(go.Scatter(x=moving_avg.index, y=moving_avg.values,
                              name='7 Day Average',
                              marker={'color': 'blue'},
@@ -57,6 +59,7 @@ def plot_daily_new_us_deaths(include_ny_nj=True) -> go.Figure:
         data = state_df[
             ~state_df['state'].str.contains('New York|New Jersey')].groupby(
             'date').deaths.sum().diff()
+    ny_nj = '' if include_ny_nj else " (NY and NJ not included)"
     data = data[data.index > '2020-02-29']
     moving_avg = data.rolling('7d').mean().round(0)
     fig = go.Figure(data=[go.Bar(x=data.index, y=data.values,
@@ -67,7 +70,8 @@ def plot_daily_new_us_deaths(include_ny_nj=True) -> go.Figure:
                                  name='Daily Deaths')],
                     layout=go.Layout(yaxis={'title': 'Count'},
                                      xaxis={'title': 'Date'},
-                                     title=f'\nDaily New Deaths for the US\n'))
+                                     title=f'\nDaily New Deaths for the US'
+                                           f'{ny_nj}\n'))
     fig.add_trace(go.Scatter(x=moving_avg.index, y=moving_avg.values,
                              name='7 Day Average', marker={'color': 'blue'},
                              hovertemplate="<b>Date: </b>%{x}" +
