@@ -26,7 +26,8 @@ class PageContent:
     us_plots_text = (
         "The following 2 plots summarize the latest available data for daily "
         "covid-19 cases and deaths in the US.  Each solid line on the plots "
-        "represents a 7 day average.")
+        "represents a 7 day average. To see US data without New York and New "
+        "Jersey data, deselect the checkbox below.")
     state_plots_text = (
         "The following 2 plots summarize the latest available data for "
         "covid-19 daily cases and daily deaths for a selected state/region. "

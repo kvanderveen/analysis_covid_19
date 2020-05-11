@@ -29,8 +29,10 @@ def generate_intro():
 
 def generate_us_plots():
     st.subheader(page_content.us_plots_text)
-    new_us_cases = plot_daily_new_us_cases()
-    new_us_deaths = plot_daily_new_us_deaths()
+    include_ny_nj = st.checkbox('Include New York and New Jersey data?',
+                                value=True)
+    new_us_cases = plot_daily_new_us_cases(include_ny_nj)
+    new_us_deaths = plot_daily_new_us_deaths(include_ny_nj)
     st.plotly_chart(new_us_cases)
     st.plotly_chart(new_us_deaths)
 
